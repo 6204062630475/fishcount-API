@@ -22,7 +22,7 @@ app.post("/upload", (req, res) => {
     const imageName = "CaptureImage.jpg"; // ชื่อไฟล์ที่ต้องการ
     fs.writeFileSync(`Image/${imageName}`, imageBuffer);
     console.log("Image saved successfully.");
-    res.send("Count: รอนับ");
+    res.send("Count:  รอนับ");
   } else {
     console.error("Invalid base64String.");
     res.status(400).send("Invalid base64String.");
