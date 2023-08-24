@@ -13,7 +13,9 @@ const preprocess = (source, modelWidth, modelHeight) => {
     const img = source;
 
     // padding image to square => [n, m] to [n, n], n > m
-    const [h, w] = img.shape.slice(0, 2); // get source width and height
+    const [h, w] = img.shape.slice(0, 2);
+    console.log(h) // get source width and height
+    console.log(w) // get source width and height
     const maxSize = Math.max(w, h); // get max size
     const imgPadded = img.pad([
       [0, maxSize - h], // padding y [bottom only]
@@ -73,11 +75,11 @@ export const detectImage = (imgSource, model, classThreshold, imageBuffer) => {
     for (let i = 0; i < scores_data.length; ++i) {
       if (scores_data[i] > classThreshold) {
         // console.log("scores_data: ", scores_data[i]);
-
-        const ymin = boxes_data[i * 4] * yRatio;
-        const xmin = boxes_data[i * 4 + 1] * xRatio;
-        const ymax = boxes_data[i * 4 + 2] * yRatio;
-        const xmax = boxes_data[i * 4 + 3] * xRatio;
+        let [xmin, ymin, xmax, ymax] = boxes_data.slice(i * 4, (i + 1) * 4);
+        xmin *= 640 * xRatio;
+        xmax *= 640 * xRatio;
+        ymin *= 480 * yRatio;
+        ymax *= 480 * yRatio;
 
         const boxWidth = xmax - xmin;
         const boxHeight = ymax - ymin;
@@ -85,16 +87,17 @@ export const detectImage = (imgSource, model, classThreshold, imageBuffer) => {
         // console.log(yRatio);
         // console.log(ymax);
         // console.log(xmax);
-        pic.fill("red", (err) => {
-          if (!err) console.log("draw successful");
-        });
-        pic.stroke("#ff0000", 2, (err) => {
-          if (!err) console.log("draw successful");
-        });
-        pic.drawLine(100, 30, 400, 80)
-        // pic.drawRectangle(xmin, ymin, xmin + boxWidth, ymin + boxHeight, (err) => {
+        // pic.fill("red", (err) => {
         //   if (!err) console.log("draw successful");
         // });
+        // pic.stroke("#ff0000", 2, (err) => {
+        //   if (!err) console.log("draw successful");
+        // });
+        // // pic.drawLine(100, 30, 400, 80)
+        // pic.drawRectangle(xmin, ymin, xmin + boxWidth, ymin + boxHeight, (err) => {
+        //   if (err) console.log(err);
+        // });
+        pic.stroke("#ff0000", 2).fill("None").drawRectangle(xmin, ymin, xmin + boxWidth, ymin + boxHeight)
         // console.log("draw successful")
         // const className = "Fish";
         // const score = scores_data[i];
@@ -109,7 +112,7 @@ export const detectImage = (imgSource, model, classThreshold, imageBuffer) => {
 
     const outputImagePath = "./Image/CaptureImageWithBoxes.jpg";
     pic.write(outputImagePath, (err) => {
-      if (!err) console.log("draw successful");
+      if (!err) console.log(err);
     });
     // const classes_data = classes.dataSync();
 
