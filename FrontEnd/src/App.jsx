@@ -24,7 +24,7 @@ function App() {
     const base64String = canvas
       .toDataURL("image/jpeg")
       .replace("data:image/jpeg;base64,", "");
-    console.log(base64String)
+    console.log("Request to API: ",base64String)
 
     try {
       const response = await axios.post('http://127.0.0.1:3001/upload', {
