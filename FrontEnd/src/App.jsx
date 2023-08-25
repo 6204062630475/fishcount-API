@@ -4,7 +4,7 @@ import axios from 'axios'; // ใช้ import แบบใหม่
 
 function App() {
   const videoRef = useRef(null);
-  const startCamera = async () => {
+  const startCamera = async () => { 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       videoRef.current.srcObject = stream;
@@ -20,13 +20,10 @@ function App() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
-
+    const arrImgBase64 = [];
     const base64String = canvas
       .toDataURL("image/jpeg")
       .replace("data:image/jpeg;base64,", "");
-<<<<<<< Updated upstream
-    console.log(base64String)
-=======
     arrImgBase64.push(base64String)
     arrImgBase64.push(base64String)
     arrImgBase64.push(base64String)
@@ -35,11 +32,10 @@ function App() {
     const jsonData = JSON.stringify(arrImgBase64);
     console.log("jsonData: ",jsonData)
     console.log("Request length API: ",arrImgBase64.length)
->>>>>>> Stashed changes
 
     try {
       const response = await axios.post('http://127.0.0.1:3001/upload', {
-        base64String
+        jsonData
       });
       console.log('API Response:', response.data);
     } catch (error) {
