@@ -53,9 +53,8 @@ async function loadModel() {
 loadModel();
 
 app.post("/upload", (req, res) => {
-  const { base64String } = req.body; // ดึงค่า base64String จาก req.body
-  // console.log('Base64 data from client:', base64String);
-
+  const { req_data } = req.body; // ดึงค่า base64String จาก req.body
+  const base64String = req_data[0]
   if (base64String) {
     const imageBuffer = Buffer.from(base64String, "base64");
     // const imageData = new Uint8Array(imageBuffer); // แปลงเป็น Uint8Array

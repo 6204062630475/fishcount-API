@@ -14,8 +14,8 @@ const preprocess = (source, modelWidth, modelHeight) => {
 
     // padding image to square => [n, m] to [n, n], n > m
     const [h, w] = img.shape.slice(0, 2);
-    console.log(h) // get source width and height
-    console.log(w) // get source width and height
+     // get source width and height
+     // get source width and height
     const maxSize = Math.max(w, h); // get max size
     const imgPadded = img.pad([
       [0, maxSize - h], // padding y [bottom only]
@@ -112,7 +112,7 @@ export const detectImage = (imgSource, model, classThreshold, imageBuffer) => {
 
     const outputImagePath = "./Image/CaptureImageWithBoxes.jpg";
     pic.write(outputImagePath, (err) => {
-      if (!err) console.log(err);
+      if (!err) console.log("draw successful");
     });
     // const classes_data = classes.dataSync();
 
