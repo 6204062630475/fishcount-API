@@ -24,7 +24,18 @@ function App() {
     const base64String = canvas
       .toDataURL("image/jpeg")
       .replace("data:image/jpeg;base64,", "");
+<<<<<<< Updated upstream
     console.log(base64String)
+=======
+    arrImgBase64.push(base64String)
+    arrImgBase64.push(base64String)
+    arrImgBase64.push(base64String)
+    arrImgBase64.push(base64String)
+    arrImgBase64.push(base64String)
+    const jsonData = JSON.stringify(arrImgBase64);
+    console.log("jsonData: ",jsonData)
+    console.log("Request length API: ",arrImgBase64.length)
+>>>>>>> Stashed changes
 
     try {
       const response = await axios.post('http://127.0.0.1:3001/upload', {
